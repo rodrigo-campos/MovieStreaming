@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using MovieStreaming.Actors;
 using Akka.Configuration;
+using MovieStreaming.Messages;
 
 namespace MovieStreaming
 {
@@ -34,9 +35,7 @@ namespace MovieStreaming
 
             IActorRef playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "PlaybackActor");
 
-            playbackActorRef.Tell("Akka.NET: The Movie");
-            playbackActorRef.Tell(42);
-            playbackActorRef.Tell('c');
+            playbackActorRef.Tell(new PlayMovieMessage("Akka.NET: The Movie", 42));
 
             Console.ReadLine();
 

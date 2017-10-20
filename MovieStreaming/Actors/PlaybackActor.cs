@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
+using MovieStreaming.Messages;
 
 namespace MovieStreaming.Actors
 {
@@ -16,13 +17,11 @@ namespace MovieStreaming.Actors
 
         protected override void OnReceive(object message)
         {
-            if (message is string)
+            if (message is PlayMovieMessage)
             {
-                Console.WriteLine($"Received movie {message}");
-            }
-            else if (message is int)
-            {
-                Console.WriteLine($"Received user ID {message}");
+                var m = message as PlayMovieMessage;
+                Console.WriteLine($"Received movie title {m.MovieTitle}");
+                Console.WriteLine($"Received user id {m.UserId}");
             }
             else
             {
