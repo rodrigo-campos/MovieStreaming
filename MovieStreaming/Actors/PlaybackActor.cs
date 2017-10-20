@@ -8,26 +8,19 @@ using MovieStreaming.Messages;
 
 namespace MovieStreaming.Actors
 {
-    public class PlaybackActor : UntypedActor
+    public class PlaybackActor : ReceiveActor
     {
         public PlaybackActor()
         {
             Console.WriteLine("Creating a PlaybackActor");
+
+            Receive<PlayMovieMessage>(message => HandlePlayMovieMessage(message));
         }
 
-        protected override void OnReceive(object message)
+        private void HandlePlayMovieMessage(PlayMovieMessage message)
         {
-            if (message is PlayMovieMessage)
-            {
-                var m = message as PlayMovieMessage;
-                Console.WriteLine($"Received movie title {m.MovieTitle}");
-                Console.WriteLine($"Received user id {m.UserId}");
-            }
-            else
-            {
-                Unhandled(message);
-            }
-
+            Console.WriteLine($"Received movie title {message.MovieTitle}");
+            Console.WriteLine($"Received user id {message.UserId}");
         }
     }
 }
