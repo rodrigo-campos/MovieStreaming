@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Akka.Actor;
 using MovieStreaming.Actors;
+using Akka.Configuration;
 
 namespace MovieStreaming
 {
@@ -14,7 +15,19 @@ namespace MovieStreaming
 
         static void Main(string[] args)
         {
-            MovieStreamingActorSystem = ActorSystem.Create(nameof(MovieStreamingActorSystem));
+            var config = ConfigurationFactory.ParseString(@"
+    akka {
+      actor {
+        serializers {
+          hyperion = ""Akka.Serialization.HyperionSerializer, Akka.Serialization.Hyperion""
+        }
+            serialization-bindings {
+          ""System.Object"" = hyperion
+        }
+      }
+    }");
+
+            MovieStreamingActorSystem = ActorSystem.Create(nameof(MovieStreamingActorSystem), config);
             Console.WriteLine("Actor system created");
 
             Props playbackActorProps = Props.Create<PlaybackActor>();
