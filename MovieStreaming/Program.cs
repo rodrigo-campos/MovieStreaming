@@ -31,17 +31,26 @@ namespace MovieStreaming
             MovieStreamingActorSystem = ActorSystem.Create(nameof(MovieStreamingActorSystem), config);
             Console.WriteLine("Actor system created");
 
-            Props playbackActorProps = Props.Create<PlaybackActor>();
-            IActorRef playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "PlaybackActor");
-
-            playbackActorRef.Tell(new PlayMovieMessage("Akka.NET: The Movie", 42));
-            playbackActorRef.Tell(new PlayMovieMessage("Inception", 99));
-            playbackActorRef.Tell(new PlayMovieMessage("Matrix", 77));
-            playbackActorRef.Tell(new PlayMovieMessage("Titanic", 1));
-            playbackActorRef.Tell(PoisonPill.Instance);
+            Props userActorProps = Props.Create<UserActor>();
+            IActorRef userActorRef = MovieStreamingActorSystem.ActorOf(userActorProps, nameof(UserActor));
 
             Console.ReadKey();
+            Console.WriteLine("Sending a PlayMovieMessage (Inception)");
+            userActorRef.Tell(new PlayMovieMessage("Inception", 99));
 
+            Console.ReadKey();
+            Console.WriteLine("Sending another PlayMovieMessage (Matrix)");
+            userActorRef.Tell(new PlayMovieMessage("Matrix", 77));
+
+            Console.ReadKey();
+            Console.WriteLine("Sending a StopMovieMessage");
+            userActorRef.Tell(new StopMovieMessage());
+
+            Console.ReadKey();
+            Console.WriteLine("Sending another StopMovieMessage");
+            userActorRef.Tell(new StopMovieMessage());
+
+            Console.ReadKey();
             MovieStreamingActorSystem.Terminate().Wait();
             Console.WriteLine("Actor system shutdown");
 

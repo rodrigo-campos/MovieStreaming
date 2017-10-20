@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieStreaming
 {
@@ -22,5 +18,7 @@ namespace MovieStreaming
         public static void WriteLineYellow(string message) => WriteLineColor(message, ConsoleColor.Yellow);
 
         public static void WriteLineGreen(string message) => WriteLineColor(message, ConsoleColor.Green);
+
+        public static void WriteLineRed(string message) => WriteLineColor(message, ConsoleColor.Red);        
     }
 }
