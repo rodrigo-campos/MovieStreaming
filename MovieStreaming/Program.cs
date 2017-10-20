@@ -69,7 +69,7 @@ namespace MovieStreaming
 
         private static void Wait()
         {
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
         }
     }
 }

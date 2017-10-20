@@ -69,7 +69,7 @@ namespace MovieStreaming.Actors
         }
 
         [Serializable]
-        private class SimulatedFailException : Exception
+        public class SimulatedFailException : Exception
         {
             public SimulatedFailException() { }
         }

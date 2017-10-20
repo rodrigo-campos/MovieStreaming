@@ -10,6 +10,20 @@ namespace MovieStreaming.Actors
             Context.ActorOf(Props.Create<MoviePlayCounterActor>(), "MoviePlayCounter");
         }
 
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            return new OneForOneStrategy(
+                exception =>
+                {
+                    if (exception is MoviePlayCounterActor.SimulatedFailException)
+                    {
+                        return Directive.Resume;
+                    }
+
+                    return Directive.Restart;
+                });
+        }
+
         private void Print(string message)
         {
             ColorConsole.WriteLineWhite($"PlaybackStatisticsActor {message}");
