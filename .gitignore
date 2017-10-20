@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/MovieStreaming/v15/Server/sqlite3
+/MovieStreaming/packages
+/MovieStreaming/bin/Debug
+/MovieStreaming/obj/Debug
+/MovieStreaming/.vs/MovieStreaming/v15/Server/sqlite3
