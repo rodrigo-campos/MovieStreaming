@@ -14,13 +14,12 @@ namespace MovieStreaming.Actors
         {
             Console.WriteLine("Creating a PlaybackActor");
 
-            Receive<PlayMovieMessage>(message => HandlePlayMovieMessage(message), message => message.UserId == 42);
+            Receive<PlayMovieMessage>(message => HandlePlayMovieMessage(message));
         }
 
         private void HandlePlayMovieMessage(PlayMovieMessage message)
         {
-            Console.WriteLine($"Received movie title {message.MovieTitle}");
-            Console.WriteLine($"Received user id {message.UserId}");
+            ColorConsole.WriteLineYellow($"PlayMovieMessage '{message.MovieTitle}' for user {message.UserId}");
         }
     }
 }

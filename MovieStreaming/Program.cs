@@ -32,14 +32,19 @@ namespace MovieStreaming
             Console.WriteLine("Actor system created");
 
             Props playbackActorProps = Props.Create<PlaybackActor>();
-
             IActorRef playbackActorRef = MovieStreamingActorSystem.ActorOf(playbackActorProps, "PlaybackActor");
 
             playbackActorRef.Tell(new PlayMovieMessage("Akka.NET: The Movie", 42));
+            playbackActorRef.Tell(new PlayMovieMessage("Inception", 99));
+            playbackActorRef.Tell(new PlayMovieMessage("Matrix", 77));
+            playbackActorRef.Tell(new PlayMovieMessage("Titanic", 1));
 
-            Console.ReadLine();
+            Console.ReadKey();
 
-            MovieStreamingActorSystem.Terminate();
+            MovieStreamingActorSystem.Terminate().Wait();
+            Console.WriteLine("Actor system shutdown");
+
+            Console.ReadKey();
         }
     }
 }
