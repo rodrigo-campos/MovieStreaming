@@ -38,6 +38,7 @@ namespace MovieStreaming
             playbackActorRef.Tell(new PlayMovieMessage("Inception", 99));
             playbackActorRef.Tell(new PlayMovieMessage("Matrix", 77));
             playbackActorRef.Tell(new PlayMovieMessage("Titanic", 1));
+            playbackActorRef.Tell(PoisonPill.Instance);
 
             Console.ReadKey();
 
