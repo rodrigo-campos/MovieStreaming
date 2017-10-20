@@ -3,35 +3,39 @@ using System;
 
 namespace MovieStreaming.Actors
 {
-    public class PlaybackActor : ReceiveActor
+    public class PlaybackStatisticsActor : ReceiveActor
     {
-        public PlaybackActor()
+        public PlaybackStatisticsActor()
         {
-            Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinator");
-            Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatistics");
+            Context.ActorOf(Props.Create<MoviePlayCounterActor>(), "MoviePlayCounter");
+        }
+
+        private void Print(string message)
+        {
+            ColorConsole.WriteLineWhite($"PlaybackStatisticsActor {message}");
         }
 
         #region Lifecycle hooks
         protected override void PreStart()
         {
-            ColorConsole.WriteLineGreen("PlayBackActor PreStart");
+            Print("PreStart");
         }
 
         protected override void PostStop()
         {
-            ColorConsole.WriteLineGreen("PlayBackActor PostStop");
+            Print("PostStop");
         }
 
         protected override void PreRestart(Exception reason, object message)
         {
-            ColorConsole.WriteLineGreen($"PlayBackActor PreRestart because: {reason}");
+            Print($"PreRestart because: {reason}");
 
             base.PreRestart(reason, message);
         }
 
         protected override void PostRestart(Exception reason)
         {
-            ColorConsole.WriteLineGreen($"PlayBackActor PostRestart because: {reason}");
+            Print($"PostRestart because: {reason}");
 
             base.PostRestart(reason);
         }
